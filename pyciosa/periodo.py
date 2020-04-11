@@ -77,3 +77,24 @@ def interpolate(periodo:str, rango:int=13, invertir:bool=False)->list:
             return periodos
     else:
         return None
+
+def get_previous_quarter_period(periodo:str):
+    """obtener el periodo de el 'quarter' anterior inmediato"""
+    year, month = explode(periodo)
+
+    if year and month:
+        fecha = pendulum.datetime(year=year, month=month, day=1)
+        encontrado = False
+        quarters = np.array(quarters)
+        while not encontrado:
+            try:
+                posicion = np.where(quarters == fecha.month)
+                if len(posicion[0]) == 0:
+                    fecha = fecha.subtract(months=1)
+                else:
+                    encontrado=True
+            except:
+                return None
+        return get_periodo(fecha)
+    else:
+        return None
