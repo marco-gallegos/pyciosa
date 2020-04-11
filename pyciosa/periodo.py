@@ -39,7 +39,7 @@ def explode(periodo:str)-> (int, int):
             return None, None
 
 
-def get_periodo(date:datetime.date|pendulum.DateTime)->str:
+def get_periodo(date:datetime.date)->str:
     """Regresar el periodo en formato YYYYMM -> 202001 correspondiente a el parametro date"""
     year = None
     month = None

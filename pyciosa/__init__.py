@@ -1,4 +1,2 @@
-name = "pyciosa"
-__all__= [
-    'periodo'
-]
+import pyciosa.periodo as periodo
+__all__= ["periodo"]
