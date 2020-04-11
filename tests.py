@@ -1,9 +1,16 @@
 import unittest
-import pyciosa as pyc
+import pyciosa
 
 class TestStringMethods(unittest.TestCase):
-    def test_ok(self):
-        self.assertEqual(1,1)
+    def test_regex(self):
+        periodo_ok = "202003"
+        periodo_bad = "202013"
+        periodo_bad2 = "20200310"
+        ok = pyciosa.periodo.is_valid(periodo=periodo_ok)
+        bad = pyciosa.periodo.is_valid(periodo=periodo_bad)
+        bad2 = pyciosa.periodo.is_valid(periodo=periodo_bad2)
+        status = (ok and not bad and not bad2)
+        self.assertTrue(status)
 
 
 if __name__ == '__main__':
