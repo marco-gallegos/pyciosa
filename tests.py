@@ -12,6 +12,11 @@ class TestStringMethods(unittest.TestCase):
         status = (ok and not bad and not bad2)
         self.assertTrue(status)
 
+    def test_range(self):
+        periodo_ok = "202003"
+        rango = pyciosa.periodo.interpolate(periodo=periodo_ok)
+        self.assertEqual(13, len(rango))
+
 
 if __name__ == '__main__':
     unittest.main()
