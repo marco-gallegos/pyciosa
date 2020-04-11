@@ -71,6 +71,9 @@ def interpolate(periodo:str, rango:int=13, invertir:bool=False)->list:
             periodos.append(periodo)
             fecha = fecha.subtract(months=1)
             contador -= 1
-        return periodos
+        if invertir:
+            return periodos[::-1]
+        else:
+            return periodos
     else:
         return None
