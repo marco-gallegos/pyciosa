@@ -1,3 +1,9 @@
+"""
+@author Marco A. Gallegos
+@date 2020/03/10
+@description
+archivo que describe el paquete distribuible
+"""
 import setuptools
 
 with open("readme.md", "r") as fh:
@@ -19,4 +25,8 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.6',
+    install_requires=[
+        'numpy',
+        'pendulum'
+    ]
 )
