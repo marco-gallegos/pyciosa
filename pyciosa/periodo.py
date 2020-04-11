@@ -9,7 +9,10 @@ import pendulum
 import numpy as np
 import re
 
+
 regex_periodo_vicioso = r"([0-9]{4}?((0[1-9])|(1[0-2]))){1}"
+
+quarters = [3,6,9,12]
 
 def is_valid(periodo:str)-> bool:
     """Determina si un periodo pasado por parametro tiene el formato YYYYMM -> 202001 
@@ -54,7 +57,7 @@ def get_periodo(date:datetime.date|pendulum.DateTime)->str:
         return None
 
 
-def interpolate(periodo:str, rango:int=13)->list:
+def interpolate(periodo:str, rango:int=13, invertir:bool=False)->list:
     """Regresar un list con los periodos interpolados entre el actual y 'rango'-1 meses anteriores
     es decir que contando el mes pasado como parametro tengamos 'rango' numero de periodos
     """
