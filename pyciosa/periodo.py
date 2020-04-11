@@ -78,6 +78,7 @@ def interpolate(periodo:str, rango:int=13, invertir:bool=False)->list:
     else:
         return None
 
+
 def get_previous_quarter_period(periodo:str):
     """obtener el periodo de el 'quarter' anterior inmediato"""
     year, month = explode(periodo)
@@ -96,5 +97,27 @@ def get_previous_quarter_period(periodo:str):
             except:
                 return None
         return get_periodo(fecha)
+    else:
+        return None
+
+
+def get_periodo_label(periodo:str)-> str:
+    """Obtener label de periodo en formato : Ene20"""
+    year, month = explode(periodo=periodo)
+    if year and month:
+        date_candidate = pendulum.datetime(year=year, month=month, day=1)
+        return str(date_candidate.format("MMMYY")).replace(".","").capitalize()
+    else:
+        return periodo
+
+
+def get_periodo_range_label(periodo_inicio:str, periodo_fin:str)-> str:
+    """Obtener label de un rango de fechas en formato : Ene-Feb2020"""
+    year, month = explode(periodo=periodo_inicio)
+    year2, month2 = explode(periodo=periodo_fin)
+    if year and month and year2 and month2:
+        date_candidate = pendulum.datetime(year=year, month=month, day=1)
+        date_candidate2 = pendulum.datetime(year=year2, month=month2, day=1)
+        return str(date_candidate.format("MMM")).replace(".","").capitalize() + "-" + str(date_candidate2.format("MMMYYYY")).replace("."," ").capitalize() 
     else:
         return None
