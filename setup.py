@@ -11,7 +11,7 @@ with open("readme.md", "r") as fh:
 
 setuptools.setup(
     name="pyciosa",
-    version="0.0.2",
+    version="0.0.3",
     author="Marco A. Gallegos",
     author_email="ma_galeza@hotmail.com",
     description="common utilities for new projects",
