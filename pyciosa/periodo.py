@@ -5,16 +5,17 @@
 Este modulo define metodos utiles para el manejo de periodos en formato : YYYYMM -> 202001
 """
 import datetime
-import pendulum
-import numpy as np
 import re
 
+import numpy as np
+import pendulum
 
 regex_periodo_vicioso = r"([0-9]{4}?((0[1-9])|(1[0-2]))){1}"
 
-quarters = [3,6,9,12]
+quarters = [3, 6, 9, 12]
 
-def is_valid(periodo:str)-> bool:
+
+def is_valid(periodo: str) -> bool:
     """Determina si un periodo pasado por parametro tiene el formato YYYYMM -> 202001 
     y concuerda con una representacion valida de fecha es decir que no se algo
     como 202020
@@ -121,3 +122,14 @@ def get_periodo_range_label(periodo_inicio:str, periodo_fin:str)-> str:
         return str(date_candidate.format("MMM")).replace(".","").capitalize() + "-" + str(date_candidate2.format("MMMYYYY")).replace("."," ").capitalize() 
     else:
         return None
+
+
+def validate_date(date: str, format: str) -> bool:
+    """Valida la fecha sea correcta con el formato que se le proporciona"""
+    try:
+        new_date = pendulum.from_format(date, format)
+        if new_date:
+            return True
+        return False
+    except Exception as err:
+        return False
