@@ -121,3 +121,15 @@ def get_periodo_range_label(periodo_inicio:str, periodo_fin:str)-> str:
         return str(date_candidate.format("MMM")).replace(".","").capitalize() + "-" + str(date_candidate2.format("MMMYYYY")).replace("."," ").capitalize() 
     else:
         return None
+
+
+def validate_date(date: str, format: str) -> bool:
+    """Valida la fecha sea correcta con el formato que se le proporciona"""
+    try:
+        new_date = pendulum.from_format(date, format)
+        if new_date:
+            return True
+        return False
+    except Exception as err:
+        print(str(err))
+        return False
