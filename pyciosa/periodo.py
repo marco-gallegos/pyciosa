@@ -16,7 +16,7 @@ quarters = [3, 6, 9, 12]
 
 
 def is_valid(periodo: str) -> bool:
-    """Determina si un periodo pasado por parametro tiene el formato YYYYMM -> 202001 
+    """Determina si un periodo pasado por parametro tiene el formato YYYYMM -> 202001
     y concuerda con una representacion valida de fecha es decir que no se algo
     como 202020
     """
@@ -48,7 +48,7 @@ def get_periodo(date:datetime.date)->str:
     if isinstance(date, datetime.date):
         year = date.year
         month = date.month
-        month = f"0{month}" if month < 10 else month 
+        month = f"0{month}" if month < 10 else month
         periodo = f"{year}{month}"
     elif isinstance(date, pendulum.DateTime):
         periodo = date.format("YMM")
@@ -80,7 +80,7 @@ def interpolate(periodo:str, rango:int=13, invertir:bool=False)->list:
         return None
 
 
-def get_previous_quarter_period(periodo:str):
+def get_previous_quarter_periodo(periodo:str):
     """obtener el periodo de el 'quarter' anterior inmediato"""
     year, month = explode(periodo)
 
@@ -119,7 +119,7 @@ def get_periodo_range_label(periodo_inicio:str, periodo_fin:str)-> str:
     if year and month and year2 and month2:
         date_candidate = pendulum.datetime(year=year, month=month, day=1)
         date_candidate2 = pendulum.datetime(year=year2, month=month2, day=1)
-        return str(date_candidate.format("MMM")).replace(".","").capitalize() + "-" + str(date_candidate2.format("MMMYYYY")).replace("."," ").capitalize() 
+        return str(date_candidate.format("MMM")).replace(".","").capitalize() + "-" + str(date_candidate2.format("MMMYYYY")).replace("."," ").capitalize()
     else:
         return None
 
