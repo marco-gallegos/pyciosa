@@ -1,0 +1,8 @@
+#@author Marco A. Gallegos
+#@date 2020/03/15
+#@description
+#archivo que describe la dependencias para generar archivo de instalacion de dependencias con pip-tools
+#pip-compile -> requirements.txt -> pip install -r
+#pip-compile --upgrade -> requirements.txt -> pip install -r
+pendulum
+numpy
