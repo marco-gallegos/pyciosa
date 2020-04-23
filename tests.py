@@ -1,3 +1,9 @@
+"""
+@author Marco A. Gallegos
+@date 2020/03/10
+@description
+pruebas unitarias locales
+"""
 import unittest
 
 import pyciosa
