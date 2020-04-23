@@ -5,7 +5,9 @@
 pruebas unitarias locales
 """
 import unittest
+
 import pyciosa
+
 
 class TestStringMethods(unittest.TestCase):
     def test_regex(self):
@@ -32,6 +34,11 @@ class TestStringMethods(unittest.TestCase):
         invalid_date = "32.01.2020"
         format = "DD.MM.YYYY"
         self.assertFalse(pyciosa.periodo.validate_date(invalid_date, format))
+
+    def test_full_period_label(self):
+        period = '202004'
+        expected = 'Abril 2020'
+        self.assertEqual(pyciosa.periodo.get_period_full_label(period), expected)
 
 if __name__ == '__main__':
     unittest.main()

@@ -133,3 +133,16 @@ def validate_date(date: str, format: str) -> bool:
         return False
     except Exception as err:
         return False
+
+
+def get_period_full_label(periodo: str) -> str:
+    """Funcion que regresa el mes y el año en la siguiente forma
+    (Enero 2020)
+    """
+    pendulum.set_locale('es')
+    year, month = explode(periodo)
+    if year and month:
+        date = pendulum.datetime(year=year, month=month, day=1)
+        return str(date.format('MMMM.YYYY')).replace('.', ' ').capitalize()
+    else:
+        return None
