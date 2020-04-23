@@ -22,3 +22,4 @@ Define una serie de funciones para el manejo de periodos en formato usado intern
  * get_periodo_label
  * get_periodo_range_label
  * validate_date
+ * get_period_full_label
