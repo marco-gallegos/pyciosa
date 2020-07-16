@@ -176,9 +176,9 @@ def get_date_for_sql_filter_from_periodo(periodo: str=None, explicit_day: int=No
     la fecha del ultimo dia del mes, el objetivo es tener una fecha para obtener
     informacion de sql.
 
-    :param periodo: [description], defaults to None
+    :param periodo: description, defaults to None
     :type periodo: str, optional
-    :param explicit_day: [description], defaults to None
+    :param explicit_day: description, defaults to None
     :type explicit_day: int, optional
 
     :return: String fecha con formato YYYY-MM-DD
