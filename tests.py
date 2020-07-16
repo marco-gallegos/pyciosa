@@ -6,10 +6,10 @@ pruebas unitarias locales
 """
 import unittest
 
-import pyciosa
+import pyciosa, pendulum
 
 
-class TestStringMethods(unittest.TestCase):
+class TestPeriodoMethods(unittest.TestCase):
     def test_regex(self):
         periodo_ok = "202003"
         periodo_bad = "202013"
@@ -39,6 +39,19 @@ class TestStringMethods(unittest.TestCase):
         period = '202004'
         expected = 'Abril 2020'
         self.assertEqual(pyciosa.periodo.get_period_full_label(period), expected)
+
+    def test_sql_date_diferent(self):
+        expected_result = '2020-02-29'
+        computed_result = pyciosa.periodo.get_date_for_sql_filter_from_periodo(periodo='202002')
+        self.assertEqual(computed_result, expected_result)
+    
+    def test_sql_date_bad_periodo(self):
+        computed_result = pyciosa.periodo.get_date_for_sql_filter_from_periodo(periodo='202000')
+        self.assertEqual(computed_result, None)
+
+    def test_sql_date_current_periodo(self):
+        computed_result = pyciosa.periodo.get_date_for_sql_filter_from_periodo()
+        self.assertEqual(computed_result, pendulum.now().format("YYYY-MM-DD"))
 
 if __name__ == '__main__':
     unittest.main()
