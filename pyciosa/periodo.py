@@ -1,7 +1,7 @@
 """
-@author Marco A. Gallegos
-@date 2020/03/10
-@description
+@Author Marco A. Gallegos
+@Date 2020/03/10
+@Description
 Este modulo define metodos utiles para el manejo de periodos en formato : YYYYMM -> 202001
 """
 import datetime
@@ -50,7 +50,7 @@ def is_valid(periodo: str, full: bool=False) -> bool:
 
 
 def explode(periodo:str)-> (int, int):
-    """Recibe el periodo como string y regresa estos datos separados como enteros"""
+    """Recibe el periodo como string y regresa estos datos (mes y año)separados como enteros"""
     if is_valid(periodo):
         if isinstance(periodo, str):
             year = int(periodo[:4])
@@ -59,24 +59,45 @@ def explode(periodo:str)-> (int, int):
         elif isinstance(periodo, datetime.date):
             year    = periodo.year
             month   = periodo.month
+            return year, month
         else:
             return None, None
     else:
             return None, None
 
 
-def get_periodo(date:datetime.date)->str:
+def split(periodo:str)-> (int, int):
+    """Recibe el periodo como string y regresa estos datos (mes y año) separados como enteros"""
+    if is_valid(periodo):
+        if isinstance(periodo, str):
+            year = int(periodo[:4])
+            month = int(periodo[4:])
+            return year, month
+        elif isinstance(periodo, datetime.date):
+            year    = periodo.year
+            month   = periodo.month
+            return year, month
+        else:
+            return None, None
+    else:
+            return None, None
+
+
+def get_periodo(date: datetime.date =None)->str:
     """Regresar el periodo en formato YYYYMM -> 202001 correspondiente a el parametro date"""
     year = None
     month = None
     periodo = None
-    if isinstance(date, datetime.date):
+    if date is None:
+        periodo = pendulum.now().format("YMM")
+    elif isinstance(date, datetime.date):
         year = date.year
         month = date.month
         month = f"0{month}" if month < 10 else month
         periodo = f"{year}{month}"
     elif isinstance(date, pendulum.DateTime):
         periodo = date.format("YMM")
+    
     if is_valid(periodo):
         return periodo
     else:
@@ -169,5 +190,45 @@ def get_period_full_label(periodo: str) -> str:
     if year and month:
         date = pendulum.datetime(year=year, month=month, day=1)
         return str(date.format('MMMM.YYYY')).replace('.', ' ').capitalize()
+    else:
+        return None
+
+
+def get_date_for_sql_filter_from_periodo(periodo: str=None, explicit_day: int=None) -> str:
+    """Recibe un periodo y regresa la fecha en formato YYYY-MM-DD
+    dependiendo el periodo. Si el periodo corresponde a el actual, regresa
+    la fecha actual. Si el periodo es de un mes pasado, regresa
+    la fecha del ultimo dia del mes, el objetivo es tener una fecha para obtener
+    informacion de sql.
+
+    :param periodo: description, defaults to None
+    :type periodo: str, optional
+    :param explicit_day: description, defaults to None
+    :type explicit_day: int, optional
+
+    :return: String fecha con formato YYYY-MM-DD
+    :rtype: str
+    """
+    if periodo is None:
+        periodo = get_periodo()
+    
+    if is_valid(periodo):
+        date_return = None
+        year = periodo[:4]
+        month = periodo[4:]
+        date_now = pendulum.now()
+        periodo_now = get_periodo(date=date_now)
+        # la varianza es el dia
+        day = 1 if explicit_day is None else int(explicit_day)
+        day = str(day) if day > 9 else "0"+str(day) 
+
+        if periodo == periodo_now and explicit_day is None:
+            date_return = date_now
+        else:
+            date_return = pendulum.parse(f"{year}-{month}-{day}")
+            if explicit_day is None:
+                date_return = date_return.end_of("month")
+        
+        return date_return.format("YYYY-MM-DD")
     else:
         return None
