@@ -11,16 +11,41 @@ import numpy as np
 import pendulum
 
 regex_periodo_vicioso = r"([0-9]{4}?((0[1-9])|(1[0-2]))){1}"
+regex_periodo_vicioso_completo = r"([0-9]{4}?((0[1-9])|(1[0-2]))((0[1-9])|((1|2)[0-9])|(3[0-1]))){1}"
 
 quarters = [3, 6, 9, 12]
 
 
-def is_valid(periodo: str) -> bool:
-    """Determina si un periodo pasado por parametro tiene el formato YYYYMM -> 202001
-    y concuerda con una representacion valida de fecha es decir que no se algo
-    como 202020
+def is_valid(periodo: str, full: bool=False) -> bool:
     """
-    result = True if re.fullmatch(pattern=regex_periodo_vicioso ,string=periodo) else False
+    Determina si un periodo pasado por parametro tiene el formato YYYYMM -> 202001
+    y concuerda con una representacion valida de fecha es decir que no se algo
+    como 202020 adicionalmente si el parametro full es especificado como true hace los 
+    mismo para un periodo completo
+
+    :param periodo: periodo enformato YYYYMM o YYYYMMDD segun :full
+    :type periodo: str
+    :param full: bandera para determinar si el periodo es completo, defaults to False
+    :type full: bool, optional
+    :return: bool que determina si el periodo es valido o no
+    :rtype: bool
+    """
+    if full:
+        result = True if re.fullmatch(pattern=regex_periodo_vicioso_completo ,string=periodo) else False
+        
+        # si tiene el formato valido validamos que se una fecha valida para el caso de fechas como 
+        # febrero que puede pasar a la regex el periodo 20200231 pero no es valido
+        result2 = False
+        if result:
+            try:
+                date = pendulum.datetime(year=int(periodo[:4]), month=int(periodo[4:6]), day=int(periodo[6:8]))
+                result2 = True
+            except:
+                result2 = False
+        result = (result and result2)
+    else:
+        result = True if re.fullmatch(pattern=regex_periodo_vicioso ,string=periodo) else False
+
     return result
 
 
