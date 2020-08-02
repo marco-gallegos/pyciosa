@@ -6,8 +6,7 @@
 """
 import unittest
 from test.test_periodo import *
-import pendulum
-
+from test.test_periodo_full import *
 
 if __name__ == '__main__':
     unittest.main()

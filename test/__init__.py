@@ -1,1 +1,1 @@
-__all__=["test_periodo"]
+__all__=["test_periodo","test_periodo_full"]

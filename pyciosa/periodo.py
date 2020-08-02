@@ -66,7 +66,7 @@ def explode(periodo:str)-> (int, int):
             return None, None
 
 
-def split(periodo:str)-> (int, int):
+def split(periodo:str, full:bool=False)-> (int, int):
     """Recibe el periodo como string y regresa estos datos (mes y año) separados como enteros"""
     if is_valid(periodo):
         if isinstance(periodo, str):
