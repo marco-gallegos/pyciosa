@@ -4,8 +4,13 @@
 #
 #    pip-compile
 #
-numpy==1.18.2             # via -r requirements.in
-pendulum==2.1.0           # via -r requirements.in
-python-dateutil==2.8.1    # via pendulum
-pytzdata==2019.3          # via pendulum
-six==1.14.0               # via python-dateutil
+numpy==1.22.0
+    # via -r requirements.in
+pendulum==2.1.0
+    # via -r requirements.in
+python-dateutil==2.8.1
+    # via pendulum
+pytzdata==2019.3
+    # via pendulum
+six==1.14.0
+    # via python-dateutil
